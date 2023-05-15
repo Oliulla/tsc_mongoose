@@ -1,4 +1,6 @@
- // 1. Create an interface representing a document in MongoDB.
+import { HydratedDocument, Model } from "mongoose";
+
+// 1. Create an interface representing a document in MongoDB.
 export interface IUser {
     id: string;
     role: "student";
@@ -14,4 +16,12 @@ export interface IUser {
     emContact?: string;
     presentAddress: string;
     parmanentAdd: string;
-  }
+}
+
+export interface IUserMethods {
+  fullName(): string;
+}
+
+export interface UserModel extends Model<IUser, {}, IUserMethods> {
+  getAdminUsers(): Promise<HydratedDocument<IUser, IUserMethods>>;
+}
